@@ -10,16 +10,32 @@ import XCTest
 final class AnimeTierListUITests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        let app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+    }
+    
+    func testSplashViewDisplaysLogoImage() throws {
+        let app = XCUIApplication()
+        // 'ATL Logo' 라벨을 가진 이미지가 화면에 존재하는지 확인합니다.
+        let logoImage = app.images["ATL Logo"]
+        XCTAssertTrue(logoImage.exists, "The ATL-logo-light image should be displayed on the SplashView.")
+    }
+    
+    func testSplashViewTransitionToContentView() {
+        let app = XCUIApplication()
+
+        // SplashView가 사라진 후 ContentView가 표시될 것으로 예상되는 시간을 기다립니다.
+        // 실제 앱에서는 SplashView가 보이는 시간에 맞춰 조정해야 합니다.
+        sleep(3)
+        
+        // "Add Item" 버튼이 ContentView에 표시되는지 확인합니다.
+        let addItemButton = app.buttons["Add Item"]
+        XCTAssertTrue(addItemButton.exists, "Add Item button should be present in ContentView after SplashView disappears.")
     }
 
     func testExample() throws {
